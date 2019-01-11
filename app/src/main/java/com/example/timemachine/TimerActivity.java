@@ -27,7 +27,7 @@ public class TimerActivity extends MainActivity {
             int minutes = seconds / 60;
             seconds = seconds % 60;
 
-            timerTextView.setText(String.format("%d:%02d", minutes, seconds));
+            //timerTextView.setText(String.format("%d:%02d", minutes, seconds));
 
             timerHandler.postDelayed(this, 500);
         }
@@ -50,3 +50,5 @@ public class TimerActivity extends MainActivity {
 
     }
 }
+
+//https://stackoverflow.com/questions/4597690/android-timer-how-to
