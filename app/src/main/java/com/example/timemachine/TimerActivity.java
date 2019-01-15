@@ -5,29 +5,39 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class TimerActivity extends MainActivity {
 
-    LinearLayout dynamicContent,bottonNavBar;
+    LinearLayout dynamicContent,bottonNavBar,setter;
 
-    // Timer
+    // Set Timer
+    private NumberPicker minute, second;
+    private TextView display;
+    private ImageView timeUp;
+
+    // Buttons
+    private Button start;
+
+    // Time
     long startTime = 0;
-
-    //runs without a timer by reposting this handler at the end of the runnable
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
-
         @Override
         public void run() {
-            long millis = System.currentTimeMillis() - startTime;
+            long millis = startTime - System.currentTimeMillis();
             int seconds = (int) (millis / 1000);
             int minutes = seconds / 60;
             seconds = seconds % 60;
 
-            //timerTextView.setText(String.format("%d:%02d", minutes, seconds));
+            display.setText(String.format("%d:%02d", minutes, seconds));
 
             timerHandler.postDelayed(this, 500);
         }
@@ -45,9 +55,44 @@ public class TimerActivity extends MainActivity {
         RadioGroup rg=(RadioGroup)findViewById(R.id.radioGroup1);
         RadioButton rb=(RadioButton)findViewById(R.id.timer);
 
-        //rb.setCompoundDrawablesWithIntrinsicBounds( 0,R.drawable.ic_av_timer_clicked, 0,0);
-        //rb.setTextColor(Color.parseColor("#3F51B5"));
+        minute = findViewById(R.id.timer_minute);
+        minute.setMinValue(0);
+        minute.setMaxValue(59);
+        minute.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                startTime -= oldVal * 1000*60;
+                startTime += newVal * 1000*60;
+            }
+        });
+        second = findViewById(R.id.timer_second);
+        second.setMinValue(0);
+        second.setMaxValue(59);
+        second.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                startTime -= oldVal * 1000;
+                startTime += newVal * 1000;
+            }
+        });
 
+        setter = findViewById(R.id.linearLayout_setTimer);
+        display = findViewById(R.id.textView_timer_time);
+        start = findViewById(R.id.button_timer_start);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setter.setVisibility(View.INVISIBLE);
+                display.setVisibility(View.VISIBLE);
+                startTime += System.currentTimeMillis();
+                timerHandler.postDelayed(timerRunnable, 0);
+                if (startTime - System.currentTimeMillis() == 0) {
+                    timerHandler.removeCallbacks(timerRunnable);
+                    timeUp = findViewById(R.id.imageView);
+                    timeUp.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 }
 

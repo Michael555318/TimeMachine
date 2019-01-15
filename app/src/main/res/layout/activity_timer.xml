@@ -9,7 +9,8 @@
     <TextView
         android:id="@+id/textView_timer_time"
         android:layout_width="0dp"
-        android:layout_height="65dp"
+        android:layout_height="86dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="132dp"
@@ -19,13 +20,15 @@
         android:textSize="36sp"
         android:textStyle="bold"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_timer_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -34,12 +37,14 @@
         android:layout_marginTop="8dp"
         android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/button_timer_stop"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_timer_time" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_timer_time"
+        app:layout_constraintVertical_bias="0.381" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_timer_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -48,39 +53,24 @@
         android:text="Stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_timer_time" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_timer_time"
+        app:layout_constraintVertical_bias="0.384" />
 
     <LinearLayout
-        android:layout_width="355dp"
-        android:layout_height="137dp"
-        android:layout_marginBottom="280dp"
+        android:id="@+id/linearLayout_setTimer"
+        android:layout_width="359dp"
+        android:layout_height="139dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:weightSum="6"
+        android:weightSum="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView_timer_time"
-        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toEndOf="@+id/textView_timer_time"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.241">
 
         <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-        </NumberPicker>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="hr"
-            android:textAlignment="center"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
-        <NumberPicker
+            android:id="@+id/timer_minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -98,6 +88,7 @@
             android:textStyle="bold" />
 
         <NumberPicker
+            android:id="@+id/timer_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
